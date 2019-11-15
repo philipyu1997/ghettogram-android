@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -31,6 +32,18 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
+        if (currentUser != null) {
+            // do stuff with the user
+            goMainActivity();
+            Log.d(TAG, "Welcome back!");
+            Toast.makeText(LoginActivity.this, "Welcome back!", Toast.LENGTH_SHORT).show();
+        } else {
+            // show the signup or login screen
+            ParseUser.logOut();
+        }
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
@@ -81,10 +94,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String username, String password) {
-
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
+
                 if (e != null) {
                     // TODO: better error handling
                     Log.e(TAG, "Issue with login");
@@ -95,8 +108,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                 }
 
-                // TODO: navigate to new activity if the user has signed properly
                 goMainActivity();
+
             }
         });
     }

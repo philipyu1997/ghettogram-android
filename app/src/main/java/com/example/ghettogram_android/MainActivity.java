@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmit);
         btnLogout = findViewById(R.id.btnLogout);
 
-//        queryPosts();
+        //        queryPosts();
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
