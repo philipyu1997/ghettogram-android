@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -70,7 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return;
                 } else {
-                    Log.d(TAG, "Successfully registered user with username: " + username);
+                    Log.d(TAG, "Successfully registered user: " + username);
+                    Toast.makeText(LoginActivity.this, "Sign Up Success!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
@@ -87,7 +90,11 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with login");
                     e.printStackTrace();
                     return;
+                } else {
+                    Log.d(TAG, "Successfully logged in!");
+                    Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                 }
+
                 // TODO: navigate to new activity if the user has signed properly
                 goMainActivity();
             }
@@ -95,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goMainActivity() {
-        Log.d(TAG, "Navigating to Main Activity");
+        Log.d(TAG, "Segue into MainActivity");
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();

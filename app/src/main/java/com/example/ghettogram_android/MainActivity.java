@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
+    private Button btnLogout;
 
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         btnCaptureImage = findViewById(R.id.btnCaptureImage);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
+        btnLogout = findViewById(R.id.btnLogout);
 
 //        queryPosts();
 
@@ -76,6 +78,26 @@ public class MainActivity extends AppCompatActivity {
                 savePost(description, user, photoFile);
             }
         });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+    }
+
+    private void logout() {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+
+        if (currentUser == null) {
+            Log.d(TAG, "Segue into LoginActivity");
+            Toast.makeText(MainActivity.this, "Logout Success!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     private void launchCamera() {
@@ -148,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 Log.d(TAG, "Success!");
+                Toast.makeText(MainActivity.this, "Post Success!", Toast.LENGTH_SHORT).show();
 
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
