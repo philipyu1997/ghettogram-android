@@ -27,8 +27,8 @@ public class PostsFragment extends Fragment {
     public static final String TAG = "PostsFragment";
 
     private RecyclerView rvPosts;
-    private PostsAdapter adapter;
-    private List<Post> mPosts;
+    protected PostsAdapter adapter;
+    protected List<Post> mPosts;
 
     // onCreateView to inflate the view
     @Nullable
@@ -56,7 +56,7 @@ public class PostsFragment extends Fragment {
         queryPosts();
     }
 
-    private void queryPosts() {
+    protected void queryPosts() {
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
 
         postQuery.include(Post.KEY_USER);

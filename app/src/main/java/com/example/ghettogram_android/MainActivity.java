@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.ghettogram_android.fragments.ComposeFragment;
 import com.example.ghettogram_android.fragments.PostsFragment;
+import com.example.ghettogram_android.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -41,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
 
-    private Button btnLogout;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -50,15 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
-        btnLogout = findViewById(R.id.btnLogout);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                logout();
-            }
-        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -67,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
-                        // TODO: swap fragment here
                         fragment = new PostsFragment();
                         Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show();
                         break;
@@ -76,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_profile:
-                        // TODO: swap fragment here
-                        fragment = new ComposeFragment();
+                        fragment = new ProfileFragment();
                         Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
                         break;
                     default:
@@ -91,6 +83,26 @@ public class MainActivity extends AppCompatActivity {
 
         // Set default selection
         bottomNavigationView.setSelectedItemId(R.id.action_home);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_overflow, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logoutItem:
+                Toast.makeText(this, "Logout Button Clicked!", Toast.LENGTH_SHORT).show();
+                logout();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void logout() {
