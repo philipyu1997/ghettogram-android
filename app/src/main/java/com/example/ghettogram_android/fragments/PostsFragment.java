@@ -39,7 +39,7 @@ public class PostsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        view.findViewById(R.id.rvPosts);
+        rvPosts = view.findViewById(R.id.rvPosts);
 
         // create the data source
         mPosts = new ArrayList<>();
@@ -51,7 +51,7 @@ public class PostsFragment extends Fragment {
         rvPosts.setAdapter(adapter);
 
         // set the layout manager on the recycler view
-//        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
 
         queryPosts();
     }
@@ -60,6 +60,9 @@ public class PostsFragment extends Fragment {
         ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
 
         postQuery.include(Post.KEY_USER);
+        postQuery.setLimit(20);
+        postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
+
         postQuery.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
