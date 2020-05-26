@@ -1,2 +1,2 @@
-include ':app'
+include ':ghettogram'
 rootProject.name='***REMOVED***'

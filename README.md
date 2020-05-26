@@ -1,104 +1,53 @@
-# Project 3 - *Ghettogram*
+# Ghettogram
 
-**Ghettogram** is a photo sharing app similar to Instagram but using Parse as its backend.
+## Table of Contents
+1. [Overview](#Overview)
+2. [Product Specs](#Product-Specs)
+3. [App Walkthrough](#App-Walkthrough)
+4. [Libraries](#Libraries)
+5. [Backend](#Backend)
+6. [Credits](#Credits)
 
-Time spent: **10** hours spent in total
+## Overview
+### Description
 
-## Ghettogram Part 2
+Ghettogram is an Instagram-like client with a custom backend server that allows users to post photos and view their feed.
 
+## Product Specs
 ### User Stories
 
-The following **required** functionality is completed:
+- [x] User shall be able to sign up to create a new account using Parse authentication.
+- [x] User shall be able to log in and log out of his or her account.
+- [x] User shall remain logged in across app restarts.
+- [x] User shall be able to take a photo, add a caption, and post it to "Instagram".
+- [ ] User shall be able to see an app icon in home screen and styled bottom navigation view.
+- [ ] User shall be able to see an indeterminate progress bar while the post is being uploaded to Parse.
+- [x] User shall be able to view the last 20 posts submitted to "Instagram".
+- [x] User shall be able to pull to refresh the last 20 posts submitted to "Instagram".
+- [x] User shall be able to switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View.
+- [ ] User shall be able to load more posts once he or she reaches the bottom of the feed using infinite scrolling.
+- [ ] User shall be able to see the username and creation time for each post.
+- [ ] User shall be able to tap a post to view post details, including timestamp and caption.
+- [ ] User shall be able to add a profile photo.
+- [ ] Tapping on a post's username or profile photo shall segue to that user's profile page and shows a grid view of the user's posts.
+- [ ] User shall be able to comment on a post and see all comments for each post in the post details screen.
+- [ ] User shall be able to like a post and see number of likes for each post in the post details screen.
 
-- [X] User can view the last 20 posts submitted to "Instagram".
-- [X] User can pull to refresh the last 20 posts submitted to "Instagram".
-- [X] The user should switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View. (2 points)
+## App Walkthrough
 
-The following **optional** features are implemented:
+Here's a GIF of how the app works:
 
-- [ ] Style the feed to look like the real Instagram feed.
-- [ ] User can load more posts once he or she reaches the bottom of the feed using infinite scrolling.
-- [ ] Show the username and creation time for each post.
-- [ ] User can tap a post to view post details, including timestamp and caption.
-- [ ] User Profiles
-      - [ ] Allow the logged in user to add a profile photo
-      - [ ] Display the profile photo with each post
-- [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts
-- [ ] User can comment on a post and see all comments for each post in the post details screen.
-- [ ] User can like a post and see number of likes for each post in the post details screen.
-- [ ] Run your app on your phone and use a custom camera view
+<img src="ADD_GIF_LINK" width=250><br>
 
-The following **additional** features are implemented:
+## Libraries
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing.
+- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android.
 
-### Video Walkthrough
+## Backend
 
-Here's a walkthrough of implemented user stories:
+- [Parse](https://github.com/parse-community/Parse-SDK-iOS-OSX) - An open source Backend-as-a-Service (BaaS) framework initially developed by Facebook. The platform now has an active and robust community of fanatical developers who constantly innovate and strive to improve the already impressive and modular platform.
 
-<img src='https://i.imgur.com/WoffbkI.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+## Credits
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-### Notes
-
-Describe any challenges encountered while building the app.
-
-### Open-source libraries used
-
-- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
-- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-
-## Ghettogram Part 1
-
-### User Stories
-
-The following **required** functionality is completed:
-
-- [X] User can sign up to create a new account using Parse authentication.
-- [X] User can log in and log out of his or her account.
-- [X] The current signed in user is persisted across app restarts.
-- [X] User can take a photo, add a caption, and post it to "Instagram".
-
-The following **optional** features are implemented:
-
-- [ ] User sees app icon in home screen and styled bottom navigation view
-- [ ] Style the feed to look like the real Instagram feed.
-- [ ] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse.
-
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
-### Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
-
-<img src='https://i.imgur.com/Bdf0j0N.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-### Notes
-
-Describe any challenges encountered while building the app.
-
-### Open-source libraries used
-
-- [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
-- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
-
-### License
-
-    Copyright [yyyy] [name of copyright owner]
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+>This is a companion project to CodePath's Professional Android Course, check out the full course at [www.codepath.org](https://codepath.org/).
