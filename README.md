@@ -26,8 +26,8 @@ Ghettogram is an Instagram-like client with a custom backend server that allows 
 - [x] User shall be able to pull to refresh the last 20 posts submitted to "Instagram".
 - [x] User shall be able to switch between different tabs - viewing all posts (feed view), capture (camera and photo gallery view) and profile tabs (posts made) using fragments and a Bottom Navigation View.
 - [x] User shall be able to load more posts once he or she reaches the bottom of the feed using infinite scrolling.
-- [ ] User shall be able to see the username and creation time for each post.
-- [ ] User shall be able to tap a post to view post details, including timestamp and caption.
+- [x] User shall be able to see the username and creation time for each post.
+- [x] User shall be able to tap a post to view post details, including timestamp and caption.
 - [ ] User shall be able to add a profile photo.
 - [ ] Tapping on a post's username or profile photo shall segue to that user's profile page and shows a grid view of the user's posts.
 - [ ] User shall be able to comment on a post and see all comments for each post in the post details screen.

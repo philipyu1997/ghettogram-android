@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.yuphilip.ghettogram.model.Post;
-import com.yuphilip.ghettogram.controller.adapters.PostsAdapter;
-import com.yuphilip.ghettogram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.yuphilip.ghettogram.R;
+import com.yuphilip.ghettogram.controller.adapters.PostsAdapter;
+import com.yuphilip.ghettogram.model.Post;
 import com.yuphilip.ghettogram.model.helper.EndlessRecyclerViewScrollListener;
 
 import java.util.ArrayList;
@@ -62,11 +62,15 @@ public class PostsFragment extends Fragment {
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 Log.d(TAG, "Pull to Refresh");
+
+                // Reset states
                 mPosts.clear();
                 skipPosts = 0;
+                scrollListener.resetState();
+
+                // Fetch posts
                 queryPosts();
                 swipeContainer.setRefreshing(false);
-                scrollListener.resetState();
             }
         });
 
@@ -99,6 +103,8 @@ public class PostsFragment extends Fragment {
         rvPosts.addOnScrollListener(scrollListener);
 
         queryPosts();
+
+        // Tapped post, segue to detail activity
 
     }
 

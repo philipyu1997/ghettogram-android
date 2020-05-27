@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">***REMOVED***</string>
+    <string name="app_name">Ghettogram</string>
+    <string name="post_content">Post content</string>
+    <string name="created_at">52 min. ago</string>
+    <string name="username">username</string>
 </resources>

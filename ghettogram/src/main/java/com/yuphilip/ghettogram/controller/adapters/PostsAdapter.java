@@ -1,19 +1,26 @@
 package com.yuphilip.ghettogram.controller.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
-import com.yuphilip.ghettogram.model.Post;
 import com.yuphilip.ghettogram.R;
+import com.yuphilip.ghettogram.controller.activities.DetailActivity;
+import com.yuphilip.ghettogram.model.Constant;
+import com.yuphilip.ghettogram.model.Post;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -48,26 +55,51 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvHandle;
-        private ImageView ivImage;
+        private ImageView ivProfileImage;
+        private ImageView ivPostImage;
         private TextView tvDescription;
+        private TextView tvCreatedAt;
+        private RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvHandle = itemView.findViewById(R.id.tvHandle);
-            ivImage = itemView.findViewById(R.id.ivImage);
+            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
+            ivPostImage = itemView.findViewById(R.id.ivPostImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
+            container = itemView.findViewById(R.id.container);
         }
 
-        public void bind(Post post) {
+        public void bind(final Post post) {
             // TODO: bind the view element to the post
             tvHandle.setText(post.getUser().getUsername());
+            tvCreatedAt.setText(String.format("%s", Constant.getRelativeTimeAgo(post.getCreatedAt().toString())));
 
-            ParseFile image = post.getImage();
-            if (image != null) {
-                Glide.with(context).load(image.getUrl()).into(ivImage);
+            ParseFile postImage = post.getPostImage();
+
+            if (postImage != null) {
+                Glide.with(context)
+                        .load(postImage.getUrl())
+                        .into(ivPostImage);
             }
 
+            ivProfileImage.setImageResource(R.drawable.ic_instagram_user_filled_24);
+
             tvDescription.setText(post.getDescription());
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context, "Segue to Detail Activity...", Toast.LENGTH_SHORT).show();
+
+                    // Tapped post, segue to detail activity
+                    Intent i = new Intent(context, DetailActivity.class);
+                    i.putExtra("post", Parcels.wrap(post));
+                    context.startActivity(i);
+                }
+            });
+
         }
 
         // Clean all elements of the recycler
@@ -81,6 +113,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             posts.addAll(list);
             notifyDataSetChanged();
         }
+
     }
 
 }
