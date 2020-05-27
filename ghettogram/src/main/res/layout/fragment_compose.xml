@@ -37,4 +37,10 @@
         android:text="Submit"
         android:textColor="@android:color/white" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+
 </LinearLayout>

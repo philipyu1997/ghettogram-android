@@ -1,5 +1,6 @@
 package com.yuphilip.ghettogram.controller.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,12 +24,12 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.yuphilip.ghettogram.model.Post;
-import com.yuphilip.ghettogram.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.yuphilip.ghettogram.R;
+import com.yuphilip.ghettogram.model.Post;
 
 import java.io.File;
 
@@ -40,6 +43,7 @@ public class ComposeFragment extends Fragment {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
+    private ProgressBar progressBar;
 
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
@@ -64,6 +68,9 @@ public class ComposeFragment extends Fragment {
         ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
+        progressBar = view.findViewById(R.id.progressBar);
+
+        progressBar.setVisibility(View.INVISIBLE);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +84,8 @@ public class ComposeFragment extends Fragment {
             public void onClick(View view) {
                 String description = etDescription.getText().toString();
                 ParseUser user = ParseUser.getCurrentUser();
+
+                progressBar.setVisibility(View.VISIBLE);
 
                 if (photoFile == null || ivPostImage.getDrawable() == null) {
                     Log.e(TAG, "No photo to submit");
@@ -161,10 +170,24 @@ public class ComposeFragment extends Fragment {
                 Log.d(TAG, "Success!");
                 Toast.makeText(getContext(), "Post Success!", Toast.LENGTH_SHORT).show();
 
+                hideKeyboard();
+                progressBar.setVisibility(View.INVISIBLE);
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
             }
         });
+    }
+
+    public void hideKeyboard() {
+
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
     }
 
 }
