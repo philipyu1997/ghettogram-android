@@ -19,6 +19,7 @@ import com.yuphilip.ghettogram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.yuphilip.ghettogram.model.helper.EndlessRecyclerViewScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,8 @@ public class PostsFragment extends Fragment {
     protected PostsAdapter adapter;
     protected List<Post> mPosts;
     private SwipeRefreshLayout swipeContainer;
+    private int skipPosts = 0;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     // onCreateView to inflate the view
     @Nullable
@@ -59,8 +62,11 @@ public class PostsFragment extends Fragment {
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
                 Log.d(TAG, "Pull to Refresh");
+                mPosts.clear();
+                skipPosts = 0;
                 queryPosts();
                 swipeContainer.setRefreshing(false);
+                scrollListener.resetState();
             }
         });
 
@@ -72,12 +78,34 @@ public class PostsFragment extends Fragment {
         // create the adapter
         adapter = new PostsAdapter(getContext(), mPosts);
 
+        // set the layout manager on the recycler view
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
+
         // set the adapter on the recycler view
         rvPosts.setAdapter(adapter);
 
-        // set the layout manager on the recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                Log.d(TAG, "On load more... page:" + page);
+                queryMorePosts();
+            }
+        };
 
+        // Adds the scroll listener to RecyclerView
+        rvPosts.addOnScrollListener(scrollListener);
+
+        queryPosts();
+
+    }
+
+    private void queryMorePosts() {
+
+        Log.d(TAG, "Load more posts...");
+        skipPosts = mPosts.size();
         queryPosts();
 
     }
@@ -86,7 +114,8 @@ public class PostsFragment extends Fragment {
         final ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
 
         postQuery.include(Post.KEY_USER);
-        postQuery.setLimit(20);
+        postQuery.setSkip(skipPosts);
+        postQuery.setLimit(6);
         postQuery.addDescendingOrder(Post.KEY_CREATED_AT);
 
         postQuery.findInBackground(new FindCallback<Post>() {
