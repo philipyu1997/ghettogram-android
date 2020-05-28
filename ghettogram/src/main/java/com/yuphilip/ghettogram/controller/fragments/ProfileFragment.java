@@ -25,11 +25,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yuphilip.ghettogram.R;
-
-import org.w3c.dom.Text;
+import com.yuphilip.ghettogram.model.Constant;
 
 import java.io.File;
 
@@ -41,10 +39,8 @@ public class ProfileFragment extends Fragment {
     private Button btnEdit;
     private TextView tvUsername;
     private static final String TAG = "ProfileFragment";
-    private ParseUser currentUser = ParseUser.getCurrentUser();
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo.jpg";
-    File photoFile;
+
+    private File photoFile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,44 +60,25 @@ public class ProfileFragment extends Fragment {
         btnEdit = view.findViewById(R.id.btnEdit);
         tvUsername = view.findViewById(R.id.tvUsername);
 
-        tvUsername.setText(currentUser.getUsername());
-        setProfileImage();
+        tvUsername.setText(Constant.currentUser.getUsername());
+        Constant.setProfileImage(getContext(), ivProfileImage);
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Tapped edit", Toast.LENGTH_SHORT).show();
                 launchCamera();
-                setProfileImage();
+                Constant.setProfileImage(getContext(), ivProfileImage);
             }
         });
 
     }
 
-    private void setProfileImage() {
-
-        ParseFile profileImage = currentUser.getParseFile("profileImage");
-
-        if (profileImage != null) {
-            Glide.with(getContext())
-                    .load(profileImage.getUrl())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(ivProfileImage);
-        } else {
-            Glide.with(getContext())
-                    .load(R.drawable.ic_instagram_user_filled_24)
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(ivProfileImage);
-        }
-
-
-    }
-
     private void saveProfileImage(File photoFile) {
 
-        currentUser.put("profileImage", new ParseFile(photoFile));
+        Constant.currentUser.put("profileImage", new ParseFile(photoFile));
 
-        currentUser.saveInBackground(new SaveCallback() {
+        Constant.currentUser.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e != null) {
@@ -117,10 +94,11 @@ public class ProfileFragment extends Fragment {
     }
 
     private void launchCamera() {
+
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Create a File reference to access to future access
-        photoFile = getPhotoFileUri(photoFileName);
+        photoFile = getPhotoFileUri(Constant.photoFileName);
 
         // wrap File object into a content provider
         // required for API >= 24
@@ -132,15 +110,17 @@ public class ProfileFragment extends Fragment {
         // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            startActivityForResult(intent, Constant.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == Constant.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
@@ -156,9 +136,11 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 
-    public File getPhotoFileUri(String fileName) {
+    private File getPhotoFileUri(String fileName) {
+
         // Get safe storage directory for photos
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
@@ -173,6 +155,7 @@ public class ProfileFragment extends Fragment {
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
 
         return file;
+
     }
 
 }

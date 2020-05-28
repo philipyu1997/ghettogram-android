@@ -29,6 +29,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.yuphilip.ghettogram.R;
+import com.yuphilip.ghettogram.model.Constant;
 import com.yuphilip.ghettogram.model.Post;
 
 import java.io.File;
@@ -38,23 +39,21 @@ import static android.app.Activity.RESULT_OK;
 public class ComposeFragment extends Fragment {
 
     private final String TAG = "ComposeFragment";
-
+    private ImageView ivPostImage;
     private EditText etDescription;
     private Button btnCaptureImage;
-    private ImageView ivPostImage;
     private Button btnSubmit;
     private ProgressBar progressBar;
-
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public String photoFileName = "photo.jpg";
-    File photoFile;
+    private File photoFile;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_compose, container, false);
+
     }
 
     // This event is triggered soon after onCreateView().
@@ -62,6 +61,7 @@ public class ComposeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
         etDescription = view.findViewById(R.id.etDescription);
@@ -69,7 +69,6 @@ public class ComposeFragment extends Fragment {
         btnSubmit = view.findViewById(R.id.btnSubmit);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         progressBar = view.findViewById(R.id.progressBar);
-
         progressBar.setVisibility(View.INVISIBLE);
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -96,13 +95,15 @@ public class ComposeFragment extends Fragment {
                 savePost(description, user, photoFile);
             }
         });
+
     }
 
     private void launchCamera() {
+
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Create a File reference to access to future access
-        photoFile = getPhotoFileUri(photoFileName);
+        photoFile = getPhotoFileUri(Constant.photoFileName);
 
         // wrap File object into a content provider
         // required for API >= 24
@@ -114,15 +115,17 @@ public class ComposeFragment extends Fragment {
         // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
             // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            startActivityForResult(intent, Constant.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == Constant.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
@@ -133,9 +136,11 @@ public class ComposeFragment extends Fragment {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+
     }
 
-    public File getPhotoFileUri(String fileName) {
+    private File getPhotoFileUri(String fileName) {
+
         // Get safe storage directory for photos
         // Use `getExternalFilesDir` on Context to access package-specific directories.
         // This way, we don't need to request external read/write runtime permissions.
@@ -150,9 +155,11 @@ public class ComposeFragment extends Fragment {
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
 
         return file;
+
     }
 
     private void savePost(String description, ParseUser parseUser, File photoFile) {
+
         Post post = new Post();
         post.setDescription(description);
         post.setUser(parseUser);
@@ -176,9 +183,10 @@ public class ComposeFragment extends Fragment {
                 ivPostImage.setImageResource(0);
             }
         });
+
     }
 
-    public void hideKeyboard() {
+    private void hideKeyboard() {
 
         // Check if no view has focus:
         View view = getActivity().getCurrentFocus();

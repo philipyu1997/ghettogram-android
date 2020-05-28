@@ -20,7 +20,7 @@ Ghettogram is an Instagram-like client with a custom backend server that allows 
 - [x] User shall be able to log in and log out of his or her account.
 - [x] User shall remain logged in across app restarts.
 - [x] User shall be able to take a photo, add a caption, and post it to "Instagram".
-- [ ] User shall be able to see an app icon in home screen and styled bottom navigation view.
+- [x] User shall be able to see an app icon in home screen and styled bottom navigation view.
 - [x] User shall be able to see an indeterminate progress bar while the post is being uploaded to Parse.
 - [x] User shall be able to view the last 20 posts submitted to "Instagram".
 - [x] User shall be able to pull to refresh the last 20 posts submitted to "Instagram".
@@ -28,10 +28,7 @@ Ghettogram is an Instagram-like client with a custom backend server that allows 
 - [x] User shall be able to load more posts once he or she reaches the bottom of the feed using infinite scrolling.
 - [x] User shall be able to see the username and creation time for each post.
 - [x] User shall be able to tap a post to view post details, including timestamp and caption.
-- [ ] User shall be able to add a profile photo.
-- [ ] Tapping on a post's username or profile photo shall segue to that user's profile page and shows a grid view of the user's posts.
-- [ ] User shall be able to comment on a post and see all comments for each post in the post details screen.
-- [ ] User shall be able to like a post and see number of likes for each post in the post details screen.
+- [x] User shall be able to add a profile photo.
 
 ## App Walkthrough
 

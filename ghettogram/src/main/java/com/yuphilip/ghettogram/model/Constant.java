@@ -1,12 +1,24 @@
 package com.yuphilip.ghettogram.model;
 
+import android.content.Context;
 import android.text.format.DateUtils;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.yuphilip.ghettogram.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class Constant {
+
+    public static final ParseUser currentUser = ParseUser.getCurrentUser();
+    public static final String photoFileName = "photo.jpg";
+    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
     public static String getRelativeTimeAgo(String rawJsonDate) {
@@ -26,6 +38,24 @@ public class Constant {
         }
 
         return relativeDate;
+
+    }
+
+    public static void setProfileImage(Context context, ImageView ivProfileImage) {
+
+        ParseFile profileImage = Constant.currentUser.getParseFile("profileImage");
+
+        if (profileImage != null) {
+            Glide.with(context)
+                    .load(profileImage.getUrl())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(ivProfileImage);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.ic_instagram_user_filled_24)
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(ivProfileImage);
+        }
 
     }
 

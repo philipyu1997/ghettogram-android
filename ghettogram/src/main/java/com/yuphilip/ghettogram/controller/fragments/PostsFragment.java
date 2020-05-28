@@ -27,19 +27,20 @@ import java.util.List;
 public class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
-
     private RecyclerView rvPosts;
-    protected PostsAdapter adapter;
     protected List<Post> mPosts;
+    protected PostsAdapter adapter;
     private SwipeRefreshLayout swipeContainer;
-    private int skipPosts = 0;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private int skipPosts = 0;
 
     // onCreateView to inflate the view
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_posts, container, false);
+
     }
 
     @Override
@@ -104,8 +105,6 @@ public class PostsFragment extends Fragment {
 
         queryPosts();
 
-        // Tapped post, segue to detail activity
-
     }
 
     private void queryMorePosts() {
@@ -117,6 +116,7 @@ public class PostsFragment extends Fragment {
     }
 
     protected void queryPosts() {
+
         final ParseQuery<Post> postQuery = new ParseQuery<Post>(Post.class);
 
         postQuery.include(Post.KEY_USER);
@@ -142,4 +142,5 @@ public class PostsFragment extends Fragment {
             }
         });
     }
+
 }

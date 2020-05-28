@@ -11,6 +11,7 @@ public class ParseApplication extends Application {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
 
         ParseObject.registerSubclass(Post.class);
@@ -24,4 +25,5 @@ public class ParseApplication extends Application {
                 .build());
 
     }
+
 }

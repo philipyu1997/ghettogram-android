@@ -10,4 +10,9 @@
     <string name="compose">Compose</string>
     <string name="home">Home</string>
     <string name="btn_edit">Edit</string>
+    <string name="iv_post">Post photo</string>
+    <string name="iv_profile">profile photo</string>
+    <string name="tv_caption">Post caption...</string>
+    <string name="btn_take_photo">Take Photo</string>
+    <string name="btn_submit">Submit</string>
 </resources>

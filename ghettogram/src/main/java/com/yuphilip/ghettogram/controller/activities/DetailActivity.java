@@ -6,9 +6,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
 import com.yuphilip.ghettogram.R;
+import com.yuphilip.ghettogram.databinding.ActivityDetailBinding;
 import com.yuphilip.ghettogram.model.Constant;
 import com.yuphilip.ghettogram.model.Post;
 
@@ -16,24 +18,18 @@ import org.parceler.Parcels;
 
 public class DetailActivity extends AppCompatActivity {
 
-    ImageView ivPostImage;
-    ImageView ivProfileImage;
-    TextView tvHandle;
-    TextView tvCreatedAt;
-    TextView tvDescription;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_detail);
+        ActivityDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 
-        ivPostImage = findViewById(R.id.ivPostImage);
-        ivProfileImage = findViewById(R.id.ivProfileImage);
-        tvHandle = findViewById(R.id.tvHandle);
-        tvCreatedAt = findViewById(R.id.tvCreatedAt);
-        tvDescription = findViewById(R.id.tvDescription);
+        ImageView ivProfileImage = binding.ivProfileImage;
+        ImageView ivPostImage = binding.ivPostImage;
+        TextView tvHandle = binding.tvHandle;
+        TextView tvCreatedAt = binding.tvCreatedAt;
+        TextView tvDescription = binding.tvDescription;
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra("post"));
 
@@ -46,6 +42,8 @@ public class DetailActivity extends AppCompatActivity {
         tvHandle.setText(post.getUser().getUsername());
         tvCreatedAt.setText(Constant.getRelativeTimeAgo(post.getCreatedAt().toString()));
         tvDescription.setText(post.getDescription());
+
+        Constant.setProfileImage(this, ivProfileImage);
 
     }
 

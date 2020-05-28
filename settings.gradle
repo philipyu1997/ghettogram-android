@@ -1,2 +1,2 @@
 include ':ghettogram'
-rootProject.name='***REMOVED***'
+rootProject.name='ghettogram-android'
