@@ -2,5 +2,12 @@
     <string name="app_name">Ghettogram</string>
     <string name="post_content">Post content</string>
     <string name="created_at">52 min. ago</string>
-    <string name="username">username</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="profile">Profile</string>
+    <string name="compose">Compose</string>
+    <string name="home">Home</string>
+    <string name="btn_edit">Edit</string>
 </resources>

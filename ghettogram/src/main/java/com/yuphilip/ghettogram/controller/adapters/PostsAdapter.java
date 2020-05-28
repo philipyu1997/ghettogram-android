@@ -14,7 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.parse.Parse;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 import com.yuphilip.ghettogram.R;
 import com.yuphilip.ghettogram.controller.activities.DetailActivity;
 import com.yuphilip.ghettogram.model.Constant;
@@ -60,6 +63,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvDescription;
         private TextView tvCreatedAt;
         private RelativeLayout container;
+        private ParseUser currentUser = ParseUser.getCurrentUser();
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,7 +88,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                         .into(ivPostImage);
             }
 
-            ivProfileImage.setImageResource(R.drawable.ic_instagram_user_filled_24);
+            setProfileImage();
+
 
             tvDescription.setText(post.getDescription());
 
@@ -112,6 +117,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         public void addAll(List<Post> list) {
             posts.addAll(list);
             notifyDataSetChanged();
+        }
+
+        private void setProfileImage() {
+
+            ParseFile profileImage = currentUser.getParseFile("profileImage");
+
+            if (profileImage != null) {
+                Glide.with(context)
+                        .load(profileImage.getUrl())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(ivProfileImage);
+            } else {
+                Glide.with(context)
+                        .load(R.drawable.ic_instagram_user_filled_24)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(ivProfileImage);
+            }
+
+
         }
 
     }

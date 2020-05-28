@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             // do stuff with the user
             goMainActivity();
             Log.d(TAG, "Welcome back!");
-            Toast.makeText(LoginActivity.this, "Welcome back!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
         } else {
             // show the signup or login screen
             ParseUser.logOut();
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 } else {
                     Log.d(TAG, "Successfully registered user: " + username);
-                    Toast.makeText(LoginActivity.this, "Sign Up Success!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Signed Up", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 } else {
                     Log.d(TAG, "Successfully logged in!");
-                    Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Logged In", Toast.LENGTH_SHORT).show();
                 }
 
                 goMainActivity();
