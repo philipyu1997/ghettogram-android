@@ -34,7 +34,7 @@ Ghettogram is an Instagram-like client with a custom backend server that allows 
 
 Here's a GIF of how the app works:
 
-<img src="https://user-images.githubusercontent.com/35745973/83114909-76f03a80-a07e-11ea-8eb6-1157cbf737c2.gif" width=250><br>
+<img src="https://github.com/py415/app-resources/blob/master/android/android-ghettogram.gif" width=250><br>
 
 ## Libraries
 
