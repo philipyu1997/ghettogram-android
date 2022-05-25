@@ -1,19 +1,19 @@
-# Ghettogram
+# 📸 Ghettogram
 
-## Table of Contents
-1. [Overview](#Overview)
-2. [Product Specs](#Product-Specs)
-3. [App Walkthrough](#App-Walkthrough)
-4. [Libraries](#Libraries)
-5. [Backend](#Backend)
-6. [Credits](#Credits)
+## 📋 Table of Contents
+1. [Overview](#-Overview)
+2. [Product Specs](#-Product-Specs)
+3. [App Walkthrough](#-App-Walkthrough)
+4. [Libraries](#-Libraries)
+5. [Backend](#-Backend)
+6. [Credits](#-Credits)
 
-## Overview
+## 👀 Overview
 ### Description
 
 Ghettogram is an Instagram-like client with a custom backend server that allows users to post photos and view their feed.
 
-## Product Specs
+## 📕 Product Specs
 ### User Stories
 
 - [x] User shall be able to sign up to create a new account using Parse authentication.
@@ -30,21 +30,21 @@ Ghettogram is an Instagram-like client with a custom backend server that allows 
 - [x] User shall be able to tap a post to view post details, including timestamp and caption.
 - [x] User shall be able to add a profile photo.
 
-## App Walkthrough
+## 🎬 App Walkthrough
 
 Here's a GIF of how the app works:
 
-<img src="https://raw.githubusercontent.com/py415/app-resources/master/android/android-ghettogram.gif" width="250" />
+<img src="https://raw.githubusercontent.com/py415/app-resources/master/GIFs/android/android-ghettogram.gif" width="250" />
 
-## Libraries
+## 📚 Libraries
 
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing.
 - [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android.
 
-## Backend
+## ⏪ Backend
 
 - [Parse](https://github.com/parse-community/Parse-SDK-iOS-OSX) - An open source Backend-as-a-Service (BaaS) framework initially developed by Facebook. The platform now has an active and robust community of fanatical developers who constantly innovate and strive to improve the already impressive and modular platform.
 
-## Credits
+## 💳 Credits
 
 >This is a companion project to CodePath's Professional Android Course, check out the full course at [www.codepath.org](https://codepath.org/).
